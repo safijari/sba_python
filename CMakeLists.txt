@@ -5,28 +5,24 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 11)
 endif()
 
-find_package(catkin REQUIRED)
+execute_process(COMMAND python -c
+                "import pybind11_cmake; print(pybind11_cmake.__path__[0])"
+                OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+find_package(pybind11 REQUIRED)
 find_package(Eigen3 REQUIRED)
 
-include_directories(${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
 add_definitions(${EIGEN3_DEFINITIONS})
 
-INCLUDE_DIRECTORIES(include)
-
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES sba
-)
+# include_directories(include ${EIGEN3_INCLUDE_DIRS})
+include_directories(include /usr/include/eigen3/)
 
 add_definitions(-DSBA_CHOLMOD)
 
-# SBA library
-add_library(sba src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)
-#rosbuild_add_compile_flags(sba ${SSE_FLAGS})
-target_link_libraries(sba blas lapack cholmod cxsparse)
+# SBA library original
+# add_library(sba src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)
+# target_link_libraries(sba blas lapack cholmod cxsparse)
 
-install(DIRECTORY include/sparse_bundle_adjustment/
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+pybind11_add_module(sba_cpp src/python_interface.cpp src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)
 
-install(TARGETS sba
-        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+target_link_libraries(sba_cpp PRIVATE blas lapack cholmod cxsparse)

@@ -39,7 +39,7 @@ PYBIND11_MODULE(sba_cpp, m) {
   py::class_<Node2d>(m, "Node2d")
     .def_property_readonly("x", [](Node2d &a) { return a.trans[0]; })
     .def_property_readonly("y", [](Node2d &a) { return a.trans[1]; })
-    .def_property_readonly("z", [](Node2d &a) { return a.arot; })
+    .def_property_readonly("yaw", [](Node2d &a) { return a.arot; })
     ;
 
 #ifdef VERSION_INFO

@@ -21,7 +21,6 @@ variables:
   CIBW_PLATFORM: linux
   CIBW_SKIP: "cp2* cp33* cp34* cp35*"
   CIBW_TEST_COMMAND: "python -c 'import rapidjson; print(rapidjson.__version__)'"
-  TWINE_USERNAME: lelit
   # Note: TWINE_PASSWORD is set in Gitlab settings
   CIBW_OUTPUT_DIR: wheelhouse
   CIBW_PLATFORM: linux
@@ -33,11 +32,11 @@ variables:
 
 build:
   stage: deploy
-  only:
-    - tags
+  # only:
+  #   - tags
   script:
     - git submodule update --init --recursive
     - python3 -m venv env
     - env/bin/pip install cibuildwheel==0.10.1 twine
     - env/bin/cibuildwheel
-    - env/bin/twine upload wheelhouse/*.whl
+    # - env/bin/twine upload wheelhouse/*.whl

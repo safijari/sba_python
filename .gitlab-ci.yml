@@ -2,10 +2,10 @@
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/python/tags/
 
+image: python:latest
+
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 # Pip's cache doesn't store the python packages
 # https://pip.pypa.io/en/stable/reference/pip_install/#caching
@@ -13,11 +13,16 @@ variables:
 # If you want to also cache the installed packages, you have to install
 # them in a virtualenv and cache it as well.
 
-
 stages:
   - deploy
 
 variables:
+  CIBW_OUTPUT_DIR: wheelhouse
+  CIBW_PLATFORM: linux
+  CIBW_SKIP: "cp2* cp33* cp34* cp35*"
+  CIBW_TEST_COMMAND: "python -c 'import rapidjson; print(rapidjson.__version__)'"
+  TWINE_USERNAME: lelit
+  # Note: TWINE_PASSWORD is set in Gitlab settings
   CIBW_OUTPUT_DIR: wheelhouse
   CIBW_PLATFORM: linux
   CIBW_SKIP: "*-manylinux1_i686 cp2* cp33* cp34* cp35*"
@@ -26,20 +31,13 @@ variables:
   TWINE_USERNAME: safijari
   # CIBW_TEST_COMMAND: "python -c 'import rapidjson; print(rapidjson.__version__)'"
 
-cache:
-  paths:
-    - .cache/pip
-    - venv/
-
 build:
   stage: deploy
-  services:
-    - docker:dind
-  # only:
-  #   - tags
+  only:
+    - tags
   script:
     - git submodule update --init --recursive
     - python3 -m venv env
     - env/bin/pip install cibuildwheel==0.10.1 twine
     - env/bin/cibuildwheel
-    # - env/bin/twine upload wheelhouse/*.whl
+    - env/bin/twine upload wheelhouse/*.whl

@@ -18,6 +18,9 @@ variables:
 stages:
   - deploy
 
+services:
+  - docker
+
 variables:
   CIBW_OUTPUT_DIR: wheelhouse
   CIBW_PLATFORM: linux

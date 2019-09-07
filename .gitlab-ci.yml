@@ -34,8 +34,8 @@ cache:
 
 build:
   stage: deploy
-  only:
-    - tags
+  # only:
+  #   - tags
   script:
     - git submodule update --init --recursive
     - python3 -m venv env

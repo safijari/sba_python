@@ -22,24 +22,16 @@ stages:
 variables:
   CIBW_OUTPUT_DIR: wheelhouse
   CIBW_PLATFORM: linux
-  CIBW_SKIP: "cp2* cp33* cp34* cp35*"
-  # CIBW_TEST_COMMAND: "python -c 'import rapidjson; print(rapidjson.__version__)'"
+  CIBW_SKIP: "*-manylinux1_i686 cp2* cp33* cp34* cp35*"
+  CIBW_MANYLINUX1_X86_64_IMAGE: safijari/manylinux-x64
+  CIBW_PLATFORM: linux
   TWINE_USERNAME: safijari
+  # CIBW_TEST_COMMAND: "python -c 'import rapidjson; print(rapidjson.__version__)'"
 
 cache:
   paths:
     - .cache/pip
     - venv/
-
-before_script:
-  - python -V  # Print out python version for debugging
-  - pip install virtualenv cibuildwheel
-  - virtualenv venv
-  - source venv/bin/activate
-
-test:
-  script:
-    - pip install .
 
 build:
   stage: deploy
@@ -50,4 +42,4 @@ build:
     - python3 -m venv env
     - env/bin/pip install cibuildwheel==0.10.1 twine
     - env/bin/cibuildwheel
-    - env/bin/twine upload wheelhouse/*.whl
+    # - env/bin/twine upload wheelhouse/*.whl

@@ -10,19 +10,13 @@ execute_process(COMMAND python -c
                 OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 find_package(pybind11 REQUIRED)
-find_package(Eigen3 REQUIRED)
-
-add_definitions(${EIGEN3_DEFINITIONS})
-
+# find_package(Eigen3 REQUIRED) # TODO this should be done corectly
+# add_definitions(${EIGEN3_DEFINITIONS})
 # include_directories(include ${EIGEN3_INCLUDE_DIRS})
+
 include_directories(include /usr/include/eigen3/)
 
 add_definitions(-DSBA_CHOLMOD)
 
-# SBA library original
-# add_library(sba src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)
-# target_link_libraries(sba blas lapack cholmod cxsparse)
-
 pybind11_add_module(sba_cpp src/python_interface.cpp src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)
-
 target_link_libraries(sba_cpp PRIVATE blas lapack cholmod cxsparse)

@@ -16,7 +16,6 @@ variables:
 
 
 stages:
-  - test
   - deploy
 
 variables:

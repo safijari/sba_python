@@ -11,7 +11,7 @@ from pybind11_cmake import CMakeExtension, CMakeBuild
 
 setup(
     name='sparse_bundle_adjustment',
-    version='0.0.1',
+    version='0.9.1',
     author='',
     author_email='',
     description='',

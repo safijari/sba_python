@@ -1,3 +1,11 @@
+* Sparse Bundle Adjustment Library
+  Originally developed at Willow Garage as part of the vslam stack, 
+  this library is currently used by =open_karto=. The python wrapper
+  currently only supports 2D mode and is being used as a backend for
+  [[https://github.com/safijari/mp-slam][=mp-slam=]].
+  
+* Simple usecase example
+  #+begin_src python
 from sba_cpp import SPA2d, Node2d
 import numpy as np
 
@@ -36,3 +44,4 @@ s.compute(100, 1.0e-4, True, 1.0e-8, 50)
 
 for n in s.nodes:
     print(n.x, n.y, n.yaw)
+  #+end_src

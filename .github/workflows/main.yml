@@ -8,10 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: docker://ros:kinetic-ros-base
+    - uses: docker://ros:kinetic
     - name: Run a one-line script
       run: echo Hello, world!
     - name: Run a multi-line script
       run: |
-        source /opt/ros/kinetic/setup.bash
+        find /opt/ros/
         echo $ROS_DISTRO
+        cd && catkin_create_pkg thing
+        source /opt/ros/kinetic/setup.bash

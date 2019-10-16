@@ -8,8 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    # - uses: docker://ros:kinetic
     - name: Run a multi-line script
-      run: |
-        ls
-        # docker run --rm ros:kinetic ./build_ros1
+      run: docker run --rm -v `pwd`:/code ros:kinetic /code/build_ros1.sh

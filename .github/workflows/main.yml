@@ -9,7 +9,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a multi-line script
+    - name: Initialize submodule
+      run: git submodule update --init --recursive
+    - name: Pull continer
+      run: docker pull ros:kinetic
+    - name: Run build
       run: docker run --rm -v `pwd`:/code ros:kinetic /code/build_ros1.sh
-    - name: list
-      run: find /

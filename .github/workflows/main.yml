@@ -4,14 +4,16 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - name: Initialize submodule
       run: git submodule update --init --recursive
-    - name: Pull continer
+    - name: Pull kinetic continer
       run: docker pull ros:kinetic
-    - name: Run build
+    - name: Run kinetic build
       run: docker run --rm -v `pwd`:/code ros:kinetic /code/build_ros1.sh
+    - name: Pull melodic continer
+      run: docker pull ros:melodic
+    - name: Run melodic build
+      run: docker run --rm -v `pwd`:/code ros:melodic /code/build_ros1.sh

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
     <name>sba_python</name>
-    <version>0.4.2</version>
+    <version>0.4.3</version>
     <description>Python wrapper for the sparse_bundle_adjustment library</description>
 
     <maintainer email="safijari@isu.edu">Jariullah Safi</maintainer>
@@ -16,6 +16,7 @@
     <depend>suitesparse</depend>
 
     <export>
-        <!-- <build_type>ament_python</build_type> -->
+        <build_type condition="$ROS_VERSION == 1">cmake</build_type>
+        <build_type condition="$ROS_VERSION == 2">ament_python</build_type>
     </export>
 </package>

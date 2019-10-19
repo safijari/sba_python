@@ -9,10 +9,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Initialize submodule
       run: git submodule update --init --recursive
-    - name: Pull kinetic continer
-      run: docker pull ros:kinetic
-    - name: Run kinetic build
-      run: docker run --rm -v `pwd`:/code ros:kinetic /code/build_ros1.sh
     - name: Pull melodic continer
       run: docker pull ros:melodic
     - name: Run melodic build

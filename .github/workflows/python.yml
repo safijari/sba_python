@@ -1,4 +1,4 @@
-name: Kinetic
+name: Python
 
 on: [push]
 

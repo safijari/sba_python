@@ -6,4 +6,4 @@ mv /catkin_ws/src/code /catkin_ws/src/sba_python
 
 cd /catkin_ws
 rosdep install --from-paths src --ignore-src -r -y
-catkin_make
+catkin_make_isolated

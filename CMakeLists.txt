@@ -20,6 +20,8 @@ else()
   #                 OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
   include_directories(include /usr/include/eigen3/ /usr/include/ /usr/include/suitesparse/)
 endif()
+include_directories(include /eigenfolder) # docker mount this folder externally
+include_directories(include /usr/include/suitesparse/)
 
 # find_package(pybind11 REQUIRED)
 add_subdirectory(pybind11)

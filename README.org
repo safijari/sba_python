@@ -45,3 +45,7 @@ s.compute(100, 1.0e-4, True, 1.0e-8, 50)
 for n in s.nodes:
     print(n.x, n.y, n.yaw)
   #+end_src
+
+* Building with ROS 1
+- Missing deps: openblas-dev, libsuitesparse-dev
+- Change tag for pybind11 to v2.9.0, python versions that support ros1 do not work with latest pybind

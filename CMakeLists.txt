@@ -17,18 +17,18 @@ if (catkin_FOUND)
     )
   #catkin_install_python(PROGRAMS 
   #DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+  add_subdirectory(pybind11)
 
 else()
-  # execute_process(COMMAND python -c
-  #                 "import pybind11_cmake; print(pybind11_cmake.__path__[0])"
-  #                 OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+  execute_process(COMMAND python -c
+                  "import pybind11_cmake; print(pybind11_cmake.__path__[0])"
+                  OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
   include_directories(include /usr/include/eigen3/ /usr/include/ /usr/include/suitesparse/)
+  find_package(pybind11 REQUIRED)
 endif()
 include_directories(include /eigenfolder) # docker mount this folder externally
 include_directories(include /usr/include/suitesparse/)
 
-# find_package(pybind11 REQUIRED)
-add_subdirectory(pybind11)
 add_definitions(-DSBA_CHOLMOD)
 
 pybind11_add_module(sba_cpp src/python_interface.cpp src/sba.cpp src/spa.cpp src/spa2d.cpp src/csparse.cpp src/proj.cpp src/node.cpp src/sba_file_io.cpp)

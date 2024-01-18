@@ -1,4 +1,4 @@
-FROM quay.io/pypa/manylinux2014_x86_64
+FROM safijari/manylinux_2_28-x64
 
 RUN yum install openblas-devel -y
 

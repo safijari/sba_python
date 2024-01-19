@@ -6,6 +6,7 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 find_package(catkin QUIET)
+add_subdirectory(pybind11)
 
 if (catkin_FOUND)
 	#catkin_python_setup()
@@ -15,17 +16,10 @@ if (catkin_FOUND)
   catkin_package(
     INCLUDE_DIRS include
     )
-  #catkin_install_python(PROGRAMS 
-  #DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-  add_subdirectory(pybind11)
 
 else()
-  execute_process(COMMAND python -c
-                  "import pybind11_cmake; print(pybind11_cmake.__path__[0])"
-                  OUTPUT_VARIABLE pybind11_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
-  include_directories(include /usr/include/eigen3/ /usr/include/ /usr/include/suitesparse/)
-  find_package(pybind11 REQUIRED)
 endif()
+
 include_directories(include /eigenfolder) # docker mount this folder externally
 include_directories(include /usr/include/suitesparse/)
 

@@ -6,6 +6,8 @@ rm -r dist
 
 set -e
 
+yum install eigen3-devel eigen3
+
 /opt/python/cp311-cp311/bin/pip install -U auditwheel
 
 

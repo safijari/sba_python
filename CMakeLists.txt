@@ -9,7 +9,6 @@ find_package(catkin QUIET)
 add_subdirectory(pybind11)
 
 if (catkin_FOUND)
-	#catkin_python_setup()
   find_package(Eigen3 REQUIRED)
   include_directories(include ${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
   add_definitions(${EIGEN3_DEFINITIONS})
@@ -20,8 +19,7 @@ if (catkin_FOUND)
 else()
 endif()
 
-find_package(Eigen3 REQUIRED)
-# include_directories(include /eigenfolder) # docker mount this folder externally
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(include /usr/include/suitesparse/ ${EIGEN3_INCLUDE_DIRS})
 
 add_definitions(-DSBA_CHOLMOD)

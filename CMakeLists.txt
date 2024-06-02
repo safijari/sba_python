@@ -20,8 +20,9 @@ if (catkin_FOUND)
 else()
 endif()
 
-include_directories(include /eigenfolder) # docker mount this folder externally
-include_directories(include /usr/include/suitesparse/)
+find_package(Eigen3 REQUIRED)
+# include_directories(include /eigenfolder) # docker mount this folder externally
+include_directories(include /usr/include/suitesparse/ ${EIGEN3_INCLUDE_DIRS})
 
 add_definitions(-DSBA_CHOLMOD)
 

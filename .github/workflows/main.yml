@@ -1,17 +1,19 @@
-name: CI
+name: build manylinux
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: docker/kinetic-ros-base
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        source /opt/ros/kinetic/setup.bash
-        echo $ROS_DISTRO
+    - uses: actions/checkout@v1
+    - name: Initialize submodule
+      run: git submodule update --init --recursive
+    - name: Build in manylinux container
+      run: docker run --rm -v `pwd`:/repo --rm safijari/manylinux_2_28-x64 /repo/build.sh
+    - name: Tar up artifacts
+      run: tar -czf dist.tar.gz dist/
+    - uses: actions/upload-artifact@main
+      with:
+        name: dist
+        path: dist/

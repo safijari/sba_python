@@ -9,7 +9,7 @@ set -e
 /opt/python/cp311-cp311/bin/pip install -U auditwheel
 
 
-for folder in /opt/python/cp311*
+for folder in /opt/python/cp3*
 do
     echo $folder
     $folder/bin/pip install pybind11-cmake

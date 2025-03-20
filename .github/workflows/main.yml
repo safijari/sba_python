@@ -3,10 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - python-devel
   pull_request:
     branches:
-      - master
+      - python-devel
 
 jobs:
   build:

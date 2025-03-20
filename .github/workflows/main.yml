@@ -1,10 +1,19 @@
-name: build manylinux
+name: Build
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        architecture: [x86_64, aarch64]  # Define the architectures for the build
     steps:
     - uses: actions/checkout@v1
     - name: Initialize submodule
@@ -12,12 +21,8 @@ jobs:
 
     # Build in manylinux aarch64 container
     - name: Build in manylinux aarch64 container
-      run: docker run --rm -v `pwd`:/repo --rm --platform linux/arm64 safijari/manylinux_2_28:aarch64 /repo/build.sh
+      run: docker run --rm -v `pwd`:/repo --rm safijari/manylinux_2_28:${{ matrix.architecture }} /repo/build.sh
       
-    # Build in manylinux x86_64 container
-    - name: Build in manylinux x86_64 container
-      run: docker run --rm -v `pwd`:/repo --rm safijari/manylinux_2_28:x86_64 /repo/build.sh
-
     # Tar up artifacts after both builds
     - name: Tar up artifacts
       run: tar -czf dist.tar.gz dist/
@@ -25,5 +30,5 @@ jobs:
     # Upload the artifacts
     - uses: actions/upload-artifact@main
       with:
-        name: dist
-        path: dist/
+        name: dist_${{ matrix.architecture }}
+        path: dist_${{ matrix.architecture }}/

@@ -12,7 +12,7 @@ jobs:
 
     # Build in manylinux aarch64 container
     - name: Build in manylinux aarch64 container
-      run: docker run --rm -v `pwd`:/repo --rm safijari/manylinux_2_28:aarch64 /repo/build.sh
+      run: docker run --rm -v `pwd`:/repo --rm --platform linux/arm64 safijari/manylinux_2_28:aarch64 /repo/build.sh
       
     # Build in manylinux x86_64 container
     - name: Build in manylinux x86_64 container

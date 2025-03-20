@@ -11,9 +11,10 @@ yum install eigen3-devel eigen3
 /opt/python/cp311-cp311/bin/pip install -U setuptools
 /opt/python/cp311-cp311/bin/pip install -U auditwheel
 
-for folder in /opt/python/cp3*
+for folder in /opt/python/cp31*
 do
     echo $folder
+    $folder/bin/pip install -U setuptools
     $folder/bin/pip install pybind11-cmake
     $folder/bin/python setup.py bdist_wheel
 done

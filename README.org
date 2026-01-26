@@ -46,6 +46,33 @@ for n in s.nodes:
     print(n.x, n.y, n.yaw)
   #+end_src
 
-* Building with ROS 1
+* Building and Installation
+** Installation from Source
+   This package requires Python 3.11 or higher.
+   
+   System dependencies:
+   - Linux: =libeigen3-dev=, =libsuitesparse-dev=, =libopenblas-dev=, =liblapack-dev=
+   - macOS: =eigen=, =suite-sparse=, =openblas=, =lapack= (install via Homebrew)
+   
+   #+begin_src bash
+   # Clone the repository with submodules
+   git clone --recursive https://github.com/safijari/sba_python.git
+   cd sba_python
+   
+   # Install Python dependencies
+   pip install pybind11-cmake
+   
+   # Build and install
+   pip install .
+   #+end_src
+
+** GitHub Actions CI/CD
+   The project uses GitHub Actions for automated building and releasing:
+   - Builds wheels for Python 3.11, 3.12, and 3.13
+   - Supports Linux (x86_64) and macOS (x86_64 and arm64)
+   - Automatically creates releases when tags starting with =v= are pushed
+   - Uploads built wheels to GitHub releases
+
+** Building with ROS 1
 - Missing deps: openblas-dev, libsuitesparse-dev
 - Change tag for pybind11 to v2.9.0, python versions that support ros1 do not work with latest pybind

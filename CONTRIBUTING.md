@@ -61,10 +61,16 @@ To create a new release:
 
 ## CI/CD
 
-The project uses GitHub Actions for continuous integration and deployment. The workflow:
-- Runs on pushes to main branches and pull requests
-- Builds wheels for multiple Python versions (3.11+) and platforms (Linux, macOS)
-- Automatically creates releases when version tags are pushed
-- Uploads artifacts to GitHub releases
+The project uses GitHub Actions for continuous integration and deployment. There are two workflows:
 
-See `.github/workflows/build-and-release.yml` for details.
+1. **build-and-release.yml** (Recommended): Modern workflow using cibuildwheel
+   - Builds wheels for Python 3.11, 3.12, and 3.13
+   - Supports Linux (x86_64, aarch64) and macOS (x86_64, arm64)
+   - Automatically creates releases when version tags are pushed
+   - Runs on pushes to main, master, and python-devel branches
+
+2. **main.yml** (Legacy): Original workflow using custom Docker container
+   - Only builds for python-devel branch
+   - Uses custom manylinux container
+
+See `.github/workflows/build-and-release.yml` for details on the recommended workflow.

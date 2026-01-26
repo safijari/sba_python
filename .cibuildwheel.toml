@@ -5,7 +5,7 @@ build-verbosity = 1
 
 [tool.cibuildwheel.linux]
 before-build = [
-    "yum install -y eigen3-devel openblas-devel lapack-devel suitesparse-devel || apt-get update && apt-get install -y libeigen3-dev libopenblas-dev liblapack-dev libsuitesparse-dev",
+    "yum install -y eigen3-devel suitesparse-devel openblas-devel lapack-devel || true",
     "pip install pybind11-cmake"
 ]
 

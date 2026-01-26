@@ -29,5 +29,5 @@ Homepage = "https://github.com/safijari/sba_python"
 Repository = "https://github.com/safijari/sba_python"
 
 [tool.setuptools]
-packages = []
+# The package is a pure extension module, no Python packages to discover
 zip-safe = false

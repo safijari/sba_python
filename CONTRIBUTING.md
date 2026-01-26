@@ -47,7 +47,7 @@ python test.py
 
 To create a new release:
 
-1. Update the version in `setup.py` and `pyproject.toml`
+1. Update the version in both `setup.py` and `pyproject.toml` (both files need to be kept in sync)
 2. Commit the changes
 3. Create and push a tag:
    ```bash

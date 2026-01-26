@@ -1,0 +1,19 @@
+[tool.cibuildwheel]
+build = "cp311-* cp312-* cp313-*"
+skip = "*-musllinux_*"
+build-verbosity = 1
+
+[tool.cibuildwheel.linux]
+before-build = [
+    "yum install -y eigen3-devel openblas-devel lapack-devel suitesparse-devel || apt-get update && apt-get install -y libeigen3-dev libopenblas-dev liblapack-dev libsuitesparse-dev",
+    "pip install pybind11-cmake"
+]
+
+[tool.cibuildwheel.macos]
+before-build = [
+    "pip install pybind11-cmake"
+]
+
+[tool.cibuildwheel.windows]
+# Windows builds are not currently supported due to SuiteSparse dependency complexity
+skip = "*"
